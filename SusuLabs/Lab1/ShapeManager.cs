@@ -8,6 +8,8 @@ namespace SusuLabs.Lab1
     {
         private readonly List<IShape> _shapes = new();
 
+        public int ShapesCount => _shapes.Count;
+
         public void CreateRectangle(Point? leftTop = null, double width = 1.0, double height = 1.0)
         {
             var rect = new Rectangle(
