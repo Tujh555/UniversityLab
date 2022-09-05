@@ -33,7 +33,7 @@ namespace SusuLabs.lab1.Domain
             _corners.Add(_rightBottomPoint);
         }
         
-        public  Rectangle(Point leftTopPoint, double width, double height): this(leftTopPoint.X, leftTopPoint.Y, width, height) { }
+        public Rectangle(Point leftTopPoint, double width, double height): this(leftTopPoint.X, leftTopPoint.Y, width, height) { }
 
         public void Move(double x, double y)
         {
