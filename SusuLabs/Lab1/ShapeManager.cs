@@ -19,13 +19,13 @@ namespace SusuLabs.Lab1
             _shapes.Add(rect);
         }
 
-        public void CreateSquare(Point? leftTop = null, double width = 0.0)
+        public void CreateSquare(Point? leftTop, double width)
         {
             var square = new Square(leftTop ?? new Point(0, 0), width);
             _shapes.Add(square);
         }
 
-        public void CreateCircle(Point? center = null, double radius = 0.0)
+        public void CreateCircle(Point? center, double radius)
         {
             var circle = new Circle(center ?? new Point(0, 0), radius);
             _shapes.Add(circle);

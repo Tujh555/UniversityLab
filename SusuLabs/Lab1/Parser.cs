@@ -4,50 +4,47 @@ namespace SusuLabs.Lab1;
 
 public class Parser
 {
-    public (Point? point, double width, double height) ParseRectangleData(string line)
-    {
-        var arr = line.Trim()
-            .Replace('.', ',')
-            .Split(" ")
-            .Select(s =>
-            {
-                try
-                {
-                    return double.Parse(s);
-                }
-                catch (Exception e)
-                {
-                    return default;
-                }
-            })
-            .ToArray();
-
-        switch (arr.Length)
+    private static double[] GetMetrics(string line) => line.Trim()
+        .Replace('.', ',')
+        .Split(" ")
+        .Select(s =>
         {
-            case 0:
+            try
             {
-                return (new Point(0, 0), 1, 1);
+                return double.Parse(s);
             }
-
-            case 1:
+            catch (Exception e)
             {
-                return (new Point(arr[0], 0), 1, 1);
+                return default;
             }
+        })
+        .ToArray();
+    public static (Point? point, double width, double height) ParseRectangleData(string line)
+    {
+        var arr = GetMetrics(line);
 
-            case 2:
-            {
-                return (new Point(arr[0], arr[1]), 1, 1);
-            } 
-
-            case 3:
-            {
-                return (new Point(arr[0], arr[1]), arr[2], 1);
-            }
-
-            default:
-            {
-                return (new Point(arr[0], arr[1]), arr[2], arr[3]);
-            }
-        }
+        return arr.Length switch
+        {
+            0 => (null, 1, 1),
+            1 => (new Point(arr[0], 0), 1, 1),
+            2 => (new Point(arr[0], arr[1]), 1, 1),
+            3 => (new Point(arr[0], arr[1]), arr[2], 1),
+            _ => (new Point(arr[0], arr[1]), arr[2], arr[3])
+        };
     }
+
+    public static (Point? point, double length) ParseSquareData(string line)
+    {
+        var arr = GetMetrics(line);
+
+        return arr.Length switch
+        {
+            0 => (null, 1),
+            1 => (new Point(arr[0], 0), 1),
+            2 => (new Point(arr[0], arr[1]), 1),
+            _ => (new Point(arr[0], arr[1]), arr[2])
+        };
+    }
+
+    public static (Point? point, double radius) ParseCircleData(string line) => ParseSquareData(line);
 }
