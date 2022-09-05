@@ -10,7 +10,7 @@ namespace SusuLabs.Lab1
 
         public int ShapesCount => _shapes.Count;
 
-        public void CreateRectangle(Point? leftTop = null, double width = 1.0, double height = 1.0)
+        public void CreateRectangle(Point? leftTop, double width, double height)
         {
             var rect = new Rectangle(
                 leftTop ?? new Point(0, 0), 
