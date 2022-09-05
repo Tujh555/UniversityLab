@@ -4,6 +4,7 @@
     {
         public static double ToRadian(this double angle) => angle * (Math.PI / 180);
 
+        
         public static double GetDistance(Point p1, Point p2)
         {
             var diffX = p1.X - p2.X;

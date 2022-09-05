@@ -47,6 +47,8 @@ namespace SusuLabs.Lab1.Domain
 
         public void Scale(double coefficient) => Radius *= coefficient;
 
+        public override string ToString() => $"--> Circle, radius {Radius}\n-> Center: {Center}";
+
         public bool Intersects(IShape shape)
         {
             if (shape is Rectangle)
