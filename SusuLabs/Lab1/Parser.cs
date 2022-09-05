@@ -19,6 +19,7 @@ public class Parser
             }
         })
         .ToArray();
+    
     public static (Point? point, double width, double height) ParseRectangleData(string line)
     {
         var arr = GetMetrics(line);
