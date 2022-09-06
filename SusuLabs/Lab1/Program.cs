@@ -19,7 +19,8 @@ namespace SusuLabs.Lab1
         };
 
         private static int _index;
-        private static readonly ShapeManager _manager = new();
+        private static readonly ShapeManager Manager = new();
+        private static bool _isMainMenuItemSelected = false;
 
         private static int MenuIndex
         {
@@ -48,29 +49,45 @@ namespace SusuLabs.Lab1
 
             while (true)
             {
-                DrawMenu(row, col, _index);
-
-                switch (Console.ReadKey(true).Key)
+                if (_isMainMenuItemSelected)
                 {
-                    case ConsoleKey.DownArrow:
-                        MenuIndex++;
-                        break;
+                    PrintItem();
+                    
+                    Console.Write("Чтобы закончить создание нажмите кнопку e , для продолжения - любую другую: ");
 
-                    case ConsoleKey.UpArrow:
-                        MenuIndex--;
-                        break;
-
-                    case ConsoleKey.Enter:
+                    if (Console.ReadKey().Key == ConsoleKey.E)
                     {
-                        PrintItem();
+                        _isMainMenuItemSelected = false;
+                        Console.Clear();
+                        
                     }
-                        break;
+                }
+                else
+                {
+                    DrawMenu(row, col, _index);
+
+                    switch (Console.ReadKey(true).Key)
+                    {
+                        case ConsoleKey.DownArrow:
+                            MenuIndex++;
+                            break;
+
+                        case ConsoleKey.UpArrow:
+                            MenuIndex--;
+                            break;
+
+                        case ConsoleKey.Enter:
+                            _isMainMenuItemSelected = true;
+                            break;
+                    }
                 }
             }
         }
 
         private static void PrintItem()
         {
+            Console.Clear();
+            
             if (MenuIndex == _mainMenuItems.Length - 1)
             {
                 Process.GetCurrentProcess().Kill();
@@ -91,9 +108,72 @@ namespace SusuLabs.Lab1
                 8 => "Полный список фигур: ",
                 _ => throw new ArgumentException("Index is unknown")
             };
-        }
+            
+            Console.WriteLine(description);
+            string inputString = Console.ReadLine() ?? "";
+            Console.WriteLine(MenuIndex);
 
-        public static void DrawMenu(int row, int col, int index)
+            switch (MenuIndex)
+            {
+                case 0:
+                {
+                    var inputData = Parser.ParseRectangleData(inputString);
+                    Manager.CreateRectangle(
+                        inputData.point,
+                        inputData.width,
+                        inputData.height);
+                } break;
+                
+                case 1:
+                {
+                    var inputData = Parser.ParseSquareData(inputString);
+                    Manager.CreateSquare(inputData.point, inputData.length);
+                } break;
+                
+                case 2:
+                {
+                    var inputData = Parser.ParseCircleData(inputString);
+                    Manager.CreateCircle(inputData.point, inputData.radius);
+                } break;
+                
+                case 3:
+                {
+                    var inputData = Parser.ParseMoveData(inputString);
+                    Manager.MoveShape(inputData.index, inputData.x, inputData.y);
+                } break;
+                
+                case 4:
+                {
+                    var inputData = Parser.ParseScaleData(inputString);
+                    Manager.ScaleShape(inputData.index, inputData.coeficient);
+                } break;
+                
+                case 5:
+                {
+                    var inputData = Parser.ParseRotateData(inputString);
+                    Manager.RotateShape(inputData.index, inputData.angle, inputData.point);
+                } break;
+                
+                case 6:
+                {
+                    var inputData = Parser.ParseIntersectionData(inputString);
+                    Manager.IsIntersects(inputData.first, inputData.second);
+                } break;
+                
+                case 7:
+                {
+                    var inputData = Parser.ParseShapeIndex(inputString);
+                    Manager.PrintByIndex(inputData);
+                } break;
+                
+                case 8:
+                {
+                    Manager.PrintAll();
+                } break;
+            }
+        }
+        
+        private static void DrawMenu(int row, int col, int index)
         {
             Console.SetCursorPosition(row, col);
 

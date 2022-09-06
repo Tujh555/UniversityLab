@@ -4,7 +4,8 @@ namespace SusuLabs.lab1.Domain
 {
     public class Rectangle : IShape
     {
-        protected double Width, Height;
+        protected double Width;
+        private double _height;
         private readonly Point _leftTopPoint, _rightTopPoint, _leftBottomPoint, _rightBottomPoint;
 
         private readonly List<Point> _corners = new();
@@ -17,10 +18,10 @@ namespace SusuLabs.lab1.Domain
 
         protected Point RightBottomPoint => _rightBottomPoint;
 
-        public Rectangle(double x, double y, double width, double height)
+        protected Rectangle(double x, double y, double width, double height)
         {
             Width = width;
-            Height = height;
+            _height = height;
 
             _leftTopPoint = new Point(x, y);
             _rightTopPoint = new Point(x + width, y);
@@ -53,14 +54,14 @@ namespace SusuLabs.lab1.Domain
 
         public void Scale(double coefficient)
         {
-            var newHeight = Height * coefficient;
+            var newHeight = _height * coefficient;
             var newWidth = Width * coefficient;
 
-            var increaseY = (newHeight - Height) / 2;
+            var increaseY = (newHeight - _height) / 2;
             var increaseX = (newWidth - Width) / 2;
 
             Width = newWidth;
-            Height = newHeight;
+            _height = newHeight;
 
             foreach (var corner in _corners)
             {
@@ -113,7 +114,7 @@ namespace SusuLabs.lab1.Domain
             throw new NotSupportedException();
         }
 
-        public override string ToString() => $"--> Rectangle, height = {Height}, width = {Width}\n" +
+        public override string ToString() => $"--> Rectangle, height = {_height}, width = {Width}\n" +
             $"-> Coordinates: {LeftTopPoint}, {RightTopPoint}, {LeftBottomPoint}, {RightBottomPoint}";
     }
 }

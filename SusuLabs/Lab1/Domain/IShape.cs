@@ -1,9 +1,9 @@
 ﻿using SusuLabs.Lab1.Domain;
 
-namespace SusuLabs.lab1
+namespace SusuLabs.lab1.Domain
 {
     public interface IShape
-    { 
+    {
         void Move(double x, double y);
 
         void Rotate(double angle, Point turningPoint);

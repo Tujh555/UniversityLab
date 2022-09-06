@@ -17,6 +17,7 @@ namespace SusuLabs.Lab1
                 width, 
                 height);
             _shapes.Add(rect);
+            Console.WriteLine(rect);
         }
 
         public void CreateSquare(Point? leftTop, double width)
@@ -47,11 +48,11 @@ namespace SusuLabs.Lab1
             }
         }
 
-        public void RotateShape(int index, double angle, Point turningPoint)
+        public void RotateShape(int index, double angle, Point? turningPoint)
         {
             if (CheckIndices(index))
             {
-                _shapes[index].Rotate(angle, turningPoint);
+                _shapes[index].Rotate(angle, turningPoint ?? new Point(0, 0));
             }
         }
 
@@ -65,9 +66,9 @@ namespace SusuLabs.Lab1
 
         public void PrintAll()
         {
-            foreach (var shape in _shapes)
+            for (int i = 0; i < _shapes.Count; i++)
             {
-                Console.WriteLine($"{shape}\n");
+                Console.WriteLine(_shapes[i]);
             }
             
             Console.WriteLine("<===>");
@@ -80,6 +81,8 @@ namespace SusuLabs.Lab1
                 Console.WriteLine(_shapes[index]);
             }
         }
+
+        public IReadOnlyCollection<IShape> GetList() => _shapes.AsReadOnly();
 
         private bool CheckIndices(params int[] indices)
         {
