@@ -75,8 +75,8 @@ namespace SusuLabs.lab1.Domain
             {
                 var s = (Rectangle)shape;
 
-                var angle = MathUtils.GetAngleWithOX(s.LeftBottomPoint, s.RightBottomPoint);
-                var turningPoint = MathUtils.GetIntersectionPointWithOX(s.LeftBottomPoint, s.RightBottomPoint);
+                var angle = MathUtils.GetAngleWithOx(s.LeftBottomPoint, s.RightBottomPoint);
+                var turningPoint = MathUtils.GetIntersectionPointWithOx(s.LeftBottomPoint, s.RightBottomPoint);
 
                 s.Rotate(-angle, turningPoint);
                 Rotate(-angle, turningPoint);
@@ -94,8 +94,8 @@ namespace SusuLabs.lab1.Domain
             {
                 var s = (Circle)shape;
 
-                var angle  = MathUtils.GetAngleWithOX(LeftBottomPoint, RightBottomPoint);
-                var turningPoint = MathUtils.GetIntersectionPointWithOX(LeftBottomPoint, RightBottomPoint);
+                var angle  = MathUtils.GetAngleWithOx(LeftBottomPoint, RightBottomPoint);
+                var turningPoint = MathUtils.GetIntersectionPointWithOx(LeftBottomPoint, RightBottomPoint);
 
                 s.Rotate(-angle, turningPoint);
                 Rotate(-angle, turningPoint);

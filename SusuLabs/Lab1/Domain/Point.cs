@@ -29,6 +29,6 @@
             Y = y1 + turningPoint.Y;
         }
 
-        public override string ToString() => $"({string.Format("{0:F2}", X)}, {string.Format("{0:F2}", Y)})";
+        public override string ToString() => $"({X:F1}, {Y:F1})";
     }
 }

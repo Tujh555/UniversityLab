@@ -1,5 +1,4 @@
-﻿using SusuLabs.lab1;
-using SusuLabs.lab1.Domain;
+﻿using SusuLabs.lab1.Domain;
 
 namespace SusuLabs.Lab1.Domain
 {
@@ -7,7 +6,7 @@ namespace SusuLabs.Lab1.Domain
     {
         private Point _center;
 
-        public double Radius { get; private set; }
+        private double Radius { get; set; }
 
         public Point TopPoint { get; private set; }
 
@@ -31,10 +30,10 @@ namespace SusuLabs.Lab1.Domain
             }
         }
 
-        public Circle(double x, double y, double radius)
+        private Circle(double x, double y, double radius)
         {
             Radius = radius;
-            Center = new Point(x, y);
+            _center = new Point(x, y);
         }
 
         public Circle(Point center, double radius): this(center.X, center.Y, radius) { }

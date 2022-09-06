@@ -4,7 +4,7 @@ namespace SusuLabs.Lab1.Domain
 {
     public class Square : Rectangle
     {
-        public Square(double x, double y, double width) : base(x, y, width, width) { }
+        private Square(double x, double y, double width) : base(x, y, width, width) { }
 
         public Square(double width) : this(0.0, 0.0, width) { }
         

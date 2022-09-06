@@ -1,5 +1,4 @@
-﻿using SusuLabs.lab1;
-using SusuLabs.lab1.Domain;
+﻿using SusuLabs.lab1.Domain;
 using SusuLabs.Lab1.Domain;
 
 namespace SusuLabs.Lab1
@@ -7,8 +6,6 @@ namespace SusuLabs.Lab1
     internal class ShapeManager
     {
         private readonly List<IShape> _shapes = new();
-
-        public int ShapesCount => _shapes.Count;
 
         public void CreateRectangle(Point? leftTop, double width, double height)
         {
@@ -66,12 +63,16 @@ namespace SusuLabs.Lab1
 
         public void PrintAll()
         {
-            for (int i = 0; i < _shapes.Count; i++)
+            if (_shapes.Count == 0)
             {
-                Console.WriteLine(_shapes[i]);
+                Console.WriteLine("Список пуст.");
+                return;
             }
             
-            Console.WriteLine("<===>");
+            foreach (var shape in _shapes)
+            {
+                Console.WriteLine(shape);
+            }
         }
 
         public void PrintByIndex(int index)
@@ -81,8 +82,6 @@ namespace SusuLabs.Lab1
                 Console.WriteLine(_shapes[index]);
             }
         }
-
-        public IReadOnlyCollection<IShape> GetList() => _shapes.AsReadOnly();
 
         private bool CheckIndices(params int[] indices)
         {
