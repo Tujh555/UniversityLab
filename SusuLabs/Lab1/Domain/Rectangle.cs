@@ -93,7 +93,7 @@ namespace SusuLabs.lab1.Domain
             if (shape is Circle)
             {
                 var s = (Circle)shape;
-
+                
                 var angle  = MathUtils.GetAngleWithOx(LeftBottomPoint, RightBottomPoint);
                 var turningPoint = MathUtils.GetIntersectionPointWithOx(LeftBottomPoint, RightBottomPoint);
 

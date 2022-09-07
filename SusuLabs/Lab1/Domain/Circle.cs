@@ -4,31 +4,17 @@ namespace SusuLabs.Lab1.Domain
 {
     public class Circle : IShape
     {
-        private Point _center;
+        private readonly Point _center;
 
         private double Radius { get; set; }
 
-        public Point TopPoint { get; private set; }
+        public Point TopPoint => new(_center.X, _center.Y + Radius);
 
-        public Point LeftPoint { get; private set; }
+        public Point LeftPoint => new(_center.X - Radius, _center.Y);
 
-        public Point BottomPoint { get; private set; } 
+        public Point BottomPoint => new(_center.X, _center.Y - Radius);
 
-        public Point RightPoint { get; private set; }
-
-        private Point Center
-        {
-            get => _center;
-            set
-            {
-                TopPoint = new Point(value.X, value.Y + Radius);
-                LeftPoint = new Point(value.X - Radius, value.Y);
-                BottomPoint = new Point(value.X, value.Y - Radius);
-                RightPoint = new Point(value.X + Radius, value.Y);
-
-                _center = value;
-            }
-        }
+        public Point RightPoint => new(_center.X + Radius, _center.Y);
 
         private Circle(double x, double y, double radius)
         {
@@ -37,16 +23,14 @@ namespace SusuLabs.Lab1.Domain
         }
 
         public Circle(Point center, double radius): this(center.X, center.Y, radius) { }
-        
-        public Circle(double radius) : this(0.0, 0.0, radius) { }
 
-        public void Move(double x, double y) => Center.Move(x, y);
+        public void Move(double x, double y) => _center.Move(x, y);
 
-        public void Rotate(double angle, Point turningPoint) => Center.Rotate(angle, turningPoint);
+        public void Rotate(double angle, Point turningPoint) => _center.Rotate(angle.ToRadian(), turningPoint);
 
         public void Scale(double coefficient) => Radius *= coefficient;
 
-        public override string ToString() => $"--> Circle, radius {Radius}\n-> Center: {Center}";
+        public override string ToString() => $"--> Circle, radius {Radius}\n-> Center: {_center}";
 
         public bool Intersects(IShape shape)
         {
@@ -61,7 +45,7 @@ namespace SusuLabs.Lab1.Domain
             {
                 Circle circle = (Circle)shape;
 
-                double distance = MathUtils.GetDistance(Center, circle.Center);
+                double distance = MathUtils.GetDistance(_center, circle._center);
 
                 return distance <= circle.Radius + Radius;
             }

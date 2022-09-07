@@ -2,7 +2,7 @@ using SusuLabs.Lab1.Domain;
 
 namespace SusuLabs.Lab1;
 
-public class Parser
+public static class Parser
 {
     private static double[] GetMetrics(string line) => line.Trim()
         .Replace('.', ',')
