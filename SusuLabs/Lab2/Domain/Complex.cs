@@ -3,11 +3,6 @@ namespace SusuLabs.Lab2.Domain;
 public class Complex
 {
     private readonly double _real, _imaginary;
-
-    public static implicit operator double(Complex complex)
-    {
-        return complex._real;
-    }
     
     public static Complex operator +(Complex num1, Complex num2)
     {
@@ -73,5 +68,13 @@ public class Complex
 
     public bool CanBeReal() => _imaginary == 0.0;
 
-    public override string ToString() => $"{_real} + {_imaginary}i";
+    public double ToDouble() => _real;
+
+    public override string ToString()
+    {
+        var sign = _imaginary < 0 ? "-" : "+";
+        var formattedImaginary = _imaginary < 0 ? -_imaginary : _imaginary;
+        
+        return $"{_real} {sign} {formattedImaginary}i";
+    }
 }
