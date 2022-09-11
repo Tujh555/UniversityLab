@@ -14,7 +14,6 @@ namespace SusuLabs.Lab1
                 width, 
                 height);
             _shapes.Add(rect);
-            Console.WriteLine(rect);
         }
 
         public void CreateSquare(Point? leftTop, double width)
