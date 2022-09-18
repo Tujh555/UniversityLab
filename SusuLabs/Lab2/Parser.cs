@@ -13,9 +13,15 @@ public class Parser
 
     public ActionData ParseInput(string line)
     {
+        if (line[0] != '(')
+        {
+            ErrorHandler?.Invoke("Операция введена в неправильном формате.");
+            return new ActionData();
+        }
+        
         string[] s = line
-            .Split(line[0] == '(' ? ")" : "(")
-            .Select(str => FormatString(str).Replace(line[0] == '(' ? "(" : ")", ""))
+            .Split(")")
+            .Select(str => FormatString(str).Replace( "(", ""))
             .ToArray();
 
         try
@@ -23,7 +29,10 @@ public class Parser
             var complexString = s.First(str => str.Contains('i'));
             var doubleString = s.First(str => str != complexString);
             
-            return new ActionData(GetComplex(complexString), GetOperation(doubleString), GetNumber(doubleString));
+            return new ActionData(
+                GetComplex(complexString), 
+                GetOperation(doubleString), 
+                GetNumber(doubleString));
         }
         catch (Exception e)
         {

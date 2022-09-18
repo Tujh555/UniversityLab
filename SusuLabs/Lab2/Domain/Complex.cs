@@ -16,7 +16,7 @@ public class Complex
 
     public static Complex operator *(Complex complex, double num)
     {
-        return new Complex(complex._imaginary * num, complex._real * num);
+        return new Complex(complex._real * num, complex._imaginary * num);
     }
     
     public static Complex operator /(Complex complex, double num)
@@ -26,9 +26,14 @@ public class Complex
             throw new DivideByZeroException("Divider must not equal zero.");
         }
         
-        return new Complex(complex._imaginary / num, complex._real / num);
+        return new Complex(complex._real / num, complex._imaginary / num);
     }
 
+    public static Complex operator -(Complex complex)
+    {
+        return new Complex(-complex._real, -complex._imaginary);
+    }
+    
     public Complex(double real, double imaginary)
     {
         _real = real;

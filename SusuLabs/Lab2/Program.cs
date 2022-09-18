@@ -1,24 +1,21 @@
-using System.Text;
-using SusuLabs.Lab2.Domain;
-using SusuLabs.Lab2.Dto;
-
 namespace SusuLabs.Lab2;
 
 public static class Program
 {
+    private static readonly Menu _menu = new();
+    private static readonly Parser _parser = new();
+    private static readonly ActionProvider _provider = new();
+
     public static void Main(string[] args)
     {
-        var menu = new Menu();
-        menu.OnInputDraw += GetString;
-
-        var parser = new Parser();
-        parser.ErrorHandler += PrintError;
-        var s = "(7 + 1224.24i) / 21,0";
-
-        var data = parser.ParseInput(s);
+        _parser.ErrorHandler += PrintError;
+        _menu.OnInputDraw += RequestAndProceedInput;
         
-        Console.WriteLine($"{data.Complex}\n{data.Operation?.ToString() ?? "null"}\n{data.Number?.ToString() ?? "null"}");
-
+        while (true)
+        {
+            _menu.Draw();
+            _menu.PutKey(Console.ReadKey().Key);
+        }
     }
 
     private static void PrintError(string message)
@@ -28,8 +25,13 @@ public static class Program
         Console.ResetColor();
     }
 
-    private static void GetString()
+    private static void RequestAndProceedInput()
     {
-        Console.ReadLine();
+        var str = Console.ReadLine() ?? "";
+        var data = _parser.ParseInput(str);
+        var res = _provider.ProcessActionData(data);
+        
+        Console.WriteLine(res);
+        Console.WriteLine("Для выхода нажмите клавишу e");
     }
 }

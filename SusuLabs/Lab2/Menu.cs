@@ -11,8 +11,8 @@ public class Menu
         "Выйти"
     };
 
-    private bool _isOperationInput = false;
-    private int _index = 0;
+    private bool _isOperationInput;
+    private int _index;
     public event InputRequestHandler? OnInputDraw;
     
     private int MenuIndex
@@ -36,23 +36,17 @@ public class Menu
         }
     }
 
-    public void Draw(ConsoleKey key)
+    public void PutKey(ConsoleKey key)
     {
         if (_isOperationInput)
         {
-            DrawInput();
-
-            switch (key)
+            if (key == ConsoleKey.E)
             {
-                case ConsoleKey.E:
-                    Process.GetCurrentProcess().Kill();
-                    break;
+                _isOperationInput = false;
             }
         }
         else
         {
-            DrawMenu();
-
             switch (key)
             {
                 case ConsoleKey.DownArrow: 
@@ -62,11 +56,30 @@ public class Menu
                 case ConsoleKey.UpArrow:
                     MenuIndex++;
                     break;
-                
+
                 case ConsoleKey.Enter:
+                {
+                    if (MenuIndex == _menuItems.Length - 1)
+                    {
+                        Process.GetCurrentProcess().Kill();
+                    }
+
                     _isOperationInput = true;
-                    break;
+                } break;
             }
+        }
+    }
+
+    public void Draw()
+    {
+        Console.Clear();
+        if (_isOperationInput)
+        {
+            DrawInput();
+        }
+        else
+        {
+            DrawMenu();
         }
     }
 
@@ -91,7 +104,7 @@ public class Menu
     {
         Console.WriteLine("Введите операнды и операцию.");
         Console.WriteLine("Формат ввода: (<комплексное число>) <знак арифметической операции> <обычное число>");
-        Console.WriteLine("Или: <обычное число> <знак арифметической операции> (<комплексное число>)");
+        Console.WriteLine("Формат ввода комплексного числа: <+-> <число> <+-> <число>i или <+-> <число>i <+-> <число>");
         OnInputDraw?.Invoke();
     }
 }
