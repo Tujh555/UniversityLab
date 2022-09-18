@@ -1,27 +1,82 @@
 using System.Text;
 using SusuLabs.Lab2.Domain;
+using SusuLabs.Lab2.Dto;
 
 namespace SusuLabs.Lab2;
 
 public delegate void ComplexParsingErrorHandler(string message);
 public class Parser
 {
-    private readonly HashSet<char> _validSymbols = new(new[] { 'i', ' ', ',', '+', '-', '.' });
+    private readonly HashSet<char> _validComplexSymbols = new(new[] { 'i', ' ', ',', '+', '-', '.' });
+    private readonly HashSet<char> _arithmeticSigns = new(new[] { '+', '-', '*', '/' });
     public event ComplexParsingErrorHandler? ErrorHandler;
 
-    public Complex? TryGetComplex(string? num)
+    public ActionData ParseInput(string line)
     {
-        if (num == null || !IsStringValid(num))
+        string[] s = line
+            .Split(line[0] == '(' ? ")" : "(")
+            .Select(str => FormatString(str).Replace(line[0] == '(' ? "(" : ")", ""))
+            .ToArray();
+
+        try
         {
-            ErrorHandler?.Invoke("Комлексное число введено в неподдерживаемой форме.\n" +
+            var complexString = s.First(str => str.Contains('i'));
+            var doubleString = s.First(str => str != complexString);
+            
+            return new ActionData(GetComplex(complexString), GetOperation(doubleString), GetNumber(doubleString));
+        }
+        catch (Exception e)
+        {
+            ErrorHandler?.Invoke("Операция введена в неправильном формате.");
+            return new ActionData();
+        }
+    }
+
+    private Operation? GetOperation(string line)
+    {
+        char operation = line.First(c => !char.IsDigit(c));
+
+        if (_arithmeticSigns.Contains(operation)) return operation switch
+        {
+            '+' => Operation.Add,
+            '-' => Operation.Subtract,
+            '*' => Operation.Multiply,
+            '/' => Operation.Divide
+        };
+        
+        ErrorHandler?.Invoke($"Неизвестная арифметическая операция {operation}");
+        return null;
+
+    }
+
+    private double? GetNumber(string line)
+    {
+        var num = line.Where(char.IsDigit).Aggregate("", (x, y) => x + y);
+
+        try
+        {
+            return double.Parse(num);
+        }
+        catch (Exception e)
+        {
+            ErrorHandler?.Invoke($"Число {num} введено в некорректной форме.");
+            return null;
+        }
+    }
+    
+    private Complex? GetComplex(string num)
+    {
+        if (!IsStringValid(num))
+        {
+            ErrorHandler?.Invoke($"Комлексное число {num} введено в неподдерживаемой форме.\n" +
                             "Вводимое число должно соответствовать правилу: \n" +
-                            "<арифметический_знак> <число> <арифметический_знак> <число>i");
+                            "<+-> <число> <+-> <число>i");
             return null;
         }
 
         var n = FormatString(num);
         double real, imaginary;
-        
+
         try
         {
             var data = GetDividedString(n);
@@ -33,13 +88,18 @@ public class Parser
             ErrorHandler?.Invoke("Введено недопустимое количество арифметических знаков.");
             return null;
         }
+        catch (FormatException e)
+        {
+            ErrorHandler?.Invoke($"Одна из частей числа {num} введена в некорректной форме");
+            return null;
+        }
 
         return new Complex(real, imaginary);
     }
 
     private (string real, string imaginary) GetDividedString(string str)
     {
-        var data = new string[2];
+        var data = new[] { "0", "0i" };
         var builder = new StringBuilder();
         var length = 0;
 
@@ -76,7 +136,7 @@ public class Parser
 
         foreach (var c in str.ToLower())
         {
-            if (!(_validSymbols.Contains(c) || char.IsDigit(c)))
+            if (!(_validComplexSymbols.Contains(c) || char.IsDigit(c)))
             {
                 return false;
             }
@@ -87,6 +147,6 @@ public class Parser
             }
         }
 
-        return str.Length > 0 && imaginaryCount == 1;
+        return str.Length > 0 && imaginaryCount <= 1;
     }
 }
