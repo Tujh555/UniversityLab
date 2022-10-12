@@ -7,8 +7,6 @@ public class Secretary : FixedSalaryEmployee
 
     public override string ToString()
     {
-        return $"Секретарь {Name}\n" +
-               $"Дата рождения: {BornDate}\n" +
-               $"Заработная плата: {Salary}";
+        return $"Секретарь " + base.ToString();
     }
 }

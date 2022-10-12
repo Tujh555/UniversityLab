@@ -7,8 +7,6 @@ public class SystemAdministrator : FixedSalaryEmployee
 
     public override string ToString()
     {
-        return $"Системный администратор {Name}\n" +
-               $"Дата рождения: {BornDate}\n" +
-               $"Заработная плата: {Salary}";
+        return $"Системный администратор " + base.ToString();
     }
 }

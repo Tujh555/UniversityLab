@@ -7,8 +7,6 @@ public class Programmer : FixedSalaryEmployee
 
     public override string ToString()
     {
-        return $"Программист {Name}\n" +
-               $"Дата рождения: {BornDate}\n" +
-               $"Заработная плата: {Salary}";
+        return "Программист " + base.ToString();
     }
 }

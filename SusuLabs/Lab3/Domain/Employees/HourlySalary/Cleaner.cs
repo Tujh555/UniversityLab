@@ -7,8 +7,6 @@ public class Cleaner : HourlySalaryEmployee
 
     public override string ToString()
     {
-        return $"Уборщик {Name}\n" +
-               $"Дата рождения: {BornDate}\n" +
-               $"Заработная плата: {Salary}";
+        return "Уборщик " + base.ToString();
     }
 }

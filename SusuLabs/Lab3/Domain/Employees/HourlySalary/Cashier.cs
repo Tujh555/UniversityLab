@@ -7,8 +7,6 @@ public class Cashier : HourlySalaryEmployee
 
     public override string ToString()
     {
-        return $"Кассир {Name}\n" +
-               $"Дата рождения: {BornDate}\n" +
-               $"Заработная плата: {Salary}";
+        return $"Кассир " + base.ToString();
     }
 }

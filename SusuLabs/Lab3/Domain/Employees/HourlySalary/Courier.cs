@@ -7,8 +7,6 @@ public class Courier : HourlySalaryEmployee
 
     public override string ToString()
     {
-        return $"Круьер {Name}\n" +
-               $"Дата рождения: {BornDate}\n" +
-               $"Заработная плата: {Salary}";
+        return "Курьер " + base.ToString();
     }
 }
