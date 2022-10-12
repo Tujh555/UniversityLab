@@ -6,7 +6,7 @@ public static class Program
     private static readonly Parser _parser = new();
     private static readonly ActionProvider _provider = new();
 
-    public static void Main(string[] args)
+    public static void Main2(string[] args)
     {
         _parser.ErrorHandler += PrintError;
         _menu.OnInputDraw += RequestAndProceedInput;
