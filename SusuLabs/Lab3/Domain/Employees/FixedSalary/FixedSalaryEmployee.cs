@@ -2,14 +2,15 @@ namespace SusuLabs.Lab3.Domain.Employees.FixedSalary;
 
 public abstract class FixedSalaryEmployee : Employee
 {
-    private readonly double _fixedRate;
-    public override double Salary => _fixedRate + Award;
+    public readonly double FixedRate;
+    public override double Salary => FixedRate + Award;
 
-    protected override double Award { get; }
+    public override double Award { get; }
 
-    protected FixedSalaryEmployee(int id, string name, DateTime bornDate, double fixedRate, double award) : base(id, name, bornDate)
+    protected FixedSalaryEmployee(int id, string name, DateTime bornDate, double fixedRate, double award, EmployeeJobTitle title) 
+        : base(id, name, bornDate, title)
     {
-        _fixedRate = fixedRate;
+        FixedRate = fixedRate;
         Award = award;
     }
 }

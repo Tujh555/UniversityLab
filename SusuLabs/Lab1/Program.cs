@@ -2,7 +2,7 @@
 
 namespace SusuLabs.Lab1
 {
-    internal static class Program
+    internal static class Program1
     {
         private static readonly string[] _mainMenuItems =
         {

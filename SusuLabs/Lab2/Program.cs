@@ -1,6 +1,6 @@
 namespace SusuLabs.Lab2;
 
-public static class Program
+public static class Program2
 {
     private static readonly Menu _menu = new();
     private static readonly Parser _parser = new();

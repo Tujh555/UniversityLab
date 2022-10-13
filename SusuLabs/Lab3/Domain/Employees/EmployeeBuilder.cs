@@ -6,12 +6,13 @@ namespace SusuLabs.Lab3.Domain.Employees;
 public class EmployeeBuilder
 {
     private readonly HashSet<int> _idSet = new();
-    private string _name;
+    private string _name = "";
     private DateTime _bornDate;
     private double _hourlyRate = 100.0;
     private double _fixedRate = 20_000.0;
-    private double _award = 0.0;
-    private EmployeeJobTitle _jobTitle = EmployeeJobTitle.Cleaner;
+    private double _award;
+    private EmployeeJobTitle? _jobTitle;
+    private int? _id;
 
     private int GetNewId()
     {
@@ -19,12 +20,18 @@ public class EmployeeBuilder
 
         do
         {
-            newId = Random.Shared.Next(200, 200);
+            newId = Random.Shared.Next();
         } while (_idSet.Contains(newId));
 
         _idSet.Add(newId);
 
         return newId;
+    }
+
+    public EmployeeBuilder Id(int id)
+    {
+        _id = id;
+        return this;
     }
 
     public EmployeeBuilder Name(string name)
@@ -43,6 +50,12 @@ public class EmployeeBuilder
         }
 
         _bornDate = new DateTime(newDate[0], newDate[1], newDate[2]);
+        return this;
+    }
+
+    public EmployeeBuilder BornDate(DateTime date)
+    {
+        _bornDate = date;
         return this;
     }
 
@@ -70,16 +83,21 @@ public class EmployeeBuilder
         return this;
     }
 
-    public Employee Build() => _jobTitle switch
+    public Employee Build()
     {
-        EmployeeJobTitle.Cashier => new Cashier(GetNewId(), _name, _bornDate, _hourlyRate, _award),
-        EmployeeJobTitle.Cleaner => new Cleaner(GetNewId(), _name, _bornDate, _hourlyRate, _award),
-        EmployeeJobTitle.Courier => new Courier(GetNewId(), _name, _bornDate, _hourlyRate, _award),
-        EmployeeJobTitle.Programmer => new Programmer(GetNewId(), _name, _bornDate, _fixedRate, _award),
-        EmployeeJobTitle.Secretary => new Secretary(GetNewId(), _name, _bornDate, _fixedRate, _award),
-        EmployeeJobTitle.SystemAdministrator => new SystemAdministrator(GetNewId(), _name, _bornDate, _fixedRate, _award),
-        _ => throw new ArgumentException("Unknown type of job title")
-    };
+        var jobTitle = _jobTitle ?? throw new ArgumentException("Unknown type of job title");
+        
+        return _jobTitle switch
+        {
+            EmployeeJobTitle.Cashier => new Cashier(_id ?? GetNewId(), _name, _bornDate, _hourlyRate, _award, jobTitle),
+            EmployeeJobTitle.Cleaner => new Cleaner(_id ?? GetNewId(), _name, _bornDate, _hourlyRate, _award, jobTitle),
+            EmployeeJobTitle.Courier => new Courier(_id ?? GetNewId(), _name, _bornDate, _hourlyRate, _award, jobTitle),
+            EmployeeJobTitle.Programmer => new Programmer(_id ?? GetNewId(), _name, _bornDate, _fixedRate, _award, jobTitle),
+            EmployeeJobTitle.Secretary => new Secretary(_id ?? GetNewId(), _name, _bornDate, _fixedRate, _award, jobTitle),
+            EmployeeJobTitle.SystemAdministrator => new SystemAdministrator(_id ?? GetNewId(), _name, _bornDate, _fixedRate, _award, jobTitle),
+            _ => throw new ArgumentException("Unknown type of job title")
+        };
+    }
 }
 
 public enum EmployeeJobTitle

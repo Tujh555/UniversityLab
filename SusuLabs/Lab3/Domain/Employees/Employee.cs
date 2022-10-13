@@ -5,14 +5,16 @@ public abstract class Employee
     public readonly int Id;
     public readonly string Name;
     public readonly DateTime BornDate;
+    public readonly EmployeeJobTitle JobTitle;
     public abstract double Salary { get; }
-    protected abstract double Award { get; }
+    public abstract double Award { get; }
 
-    protected Employee(int id, string name, DateTime bornDate)
+    protected Employee(int id, string name, DateTime bornDate, EmployeeJobTitle title)
     {
         Id = id;
         Name = name;
         BornDate = bornDate;
+        JobTitle = title;
     }
 
     public override string ToString()
