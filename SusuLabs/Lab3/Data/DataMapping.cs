@@ -10,14 +10,13 @@ public static class DataMapping
 {
     private static readonly EmployeeBuilder _builder = new();
 
-    private static readonly EmployeeJobTitle[] _fixedSalaryEmployees = new[]
-    {
+    private static readonly EmployeeJobTitle[] _fixedSalaryEmployees = {
         EmployeeJobTitle.Programmer,
         EmployeeJobTitle.Secretary,
         EmployeeJobTitle.SystemAdministrator
     };
 
-    public static Employee ToEmployee(this FixedSalaryEmployeeEntity entity)
+    private static Employee ToEmployee(this FixedSalaryEmployeeEntity entity)
     {
         return _builder
             .Name(entity.Name)
@@ -29,7 +28,7 @@ public static class DataMapping
             .Build();
     }
 
-    public static Employee ToEmployee(this HourlySalaryEmployeeEntity entity)
+    private static Employee ToEmployee(this HourlySalaryEmployeeEntity entity)
     {
         return _builder
             .Name(entity.Name)
@@ -41,7 +40,7 @@ public static class DataMapping
             .Build();
     }
 
-    public static EmployeeEntity ToEntity(this FixedSalaryEmployee employee)
+    private static EmployeeEntity ToEntity(this FixedSalaryEmployee employee)
     {
         return new FixedSalaryEmployeeEntity
         {
@@ -54,7 +53,7 @@ public static class DataMapping
         };
     }
 
-    public static EmployeeEntity ToEntity(this HourlySalaryEmployee employee)
+    private static EmployeeEntity ToEntity(this HourlySalaryEmployee employee)
     {
         return new HourlySalaryEmployeeEntity
         {

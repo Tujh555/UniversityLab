@@ -25,4 +25,13 @@ public class Organization
         .ToList();
 
     public void Add(Employee employee) => _list.Add(employee);
+
+    public void Delete(int ingex)
+    {
+        try
+        {
+            _list.RemoveAt(ingex);
+        }
+        catch (Exception _) { }
+    }
 }
