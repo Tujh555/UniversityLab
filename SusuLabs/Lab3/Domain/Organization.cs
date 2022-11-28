@@ -13,8 +13,6 @@ public class Organization
 
     public double AverageMonthlySalary => _list.Average(emp => emp.Salary);
 
-    public static readonly EmployeeBuilder EmployeeBuilder = new();
-
     public Organization(IEnumerable<Employee> list) => _list.AddRange(list);
 
     public Organization(params Employee[] employees) => _list.AddRange(employees);
@@ -26,12 +24,15 @@ public class Organization
 
     public void Add(Employee employee) => _list.Add(employee);
 
-    public void Delete(int ingex)
+    public void Delete(int index)
     {
         try
         {
-            _list.RemoveAt(ingex);
+            _list.RemoveAt(index);
         }
-        catch (Exception _) { }
+        catch (Exception _)
+        {
+            // ignored
+        }
     }
 }

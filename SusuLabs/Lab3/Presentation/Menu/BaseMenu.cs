@@ -1,22 +1,11 @@
-using System.Diagnostics;
-
 namespace SusuLabs.Lab3.Presentation.Menu;
-
-public delegate void OnExitItemselected();
 
 public abstract class BaseMenu
 {
-    private readonly string[] _menuItems;
+    protected readonly List<string> _menuItems = new ();
     private bool _isOperationInput;
     private int _index;
 
-    public event OnExitItemselected? OnExit;
-    
-    protected BaseMenu(string[] menuItems)
-    {
-        _menuItems = menuItems;
-    }
-    
     protected int MenuIndex
     {
         get => _index;
@@ -24,11 +13,11 @@ public abstract class BaseMenu
         {
             if (value < 0)
             {
-                _index = _menuItems.Length - 1;
+                _index = _menuItems.Count - 1;
                 return;
             }
 
-            if (value >= _menuItems.Length)
+            if (value >= _menuItems.Count)
             {
                 _index = 0;
                 return;
@@ -52,20 +41,15 @@ public abstract class BaseMenu
             switch (key)
             {
                 case ConsoleKey.DownArrow: 
-                    MenuIndex--; 
+                    MenuIndex++; 
                     break;
                 
                 case ConsoleKey.UpArrow:
-                    MenuIndex++;
+                    MenuIndex--;
                     break;
 
                 case ConsoleKey.Enter:
                 {
-                    if (MenuIndex == _menuItems.Length - 1)
-                    {
-                        OnExit?.Invoke();
-                    }
-
                     _isOperationInput = true;
                 } break;
             }
@@ -89,7 +73,7 @@ public abstract class BaseMenu
 
     private void DrawMenu()
     {
-        for (var i = 0; i < _menuItems.Length; i++)
+        for (var i = 0; i < _menuItems.Count; i++)
         {
             if (i == MenuIndex)
             {

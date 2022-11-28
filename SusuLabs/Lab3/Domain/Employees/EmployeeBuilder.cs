@@ -31,6 +31,7 @@ public class EmployeeBuilder
     public EmployeeBuilder Id(int id)
     {
         _id = id;
+        _idSet.Add(id);
         return this;
     }
 

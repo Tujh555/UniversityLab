@@ -1,6 +1,6 @@
 namespace SusuLabs.Lab3.Utils;
 
-public interface LiveData<T>
+public interface ILiveData<T>
 {
     public delegate void OnDataChanged(T data);
 

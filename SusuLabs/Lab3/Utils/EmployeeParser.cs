@@ -1,39 +1,31 @@
 using SusuLabs.Lab3.Domain.Employees;
-using SusuLabs.Lab3.Presentation.Menu;
-using SusuLabs.Lab3.Utils;
 
-namespace SusuLabs.Lab3.Presentation;
+namespace SusuLabs.Lab3.Utils;
 
-public class EmployeeCreationMenu : BaseMenu
+public class EmployeeParser
 {
     private readonly EmployeeBuilder _builder = new();
+    
+    public ILiveData<Employee> CreationResult => _creationResult;
+    private MutableLiveData<Employee> _creationResult = new();
     private bool _isFixedRateEmployee;
-    private MutableLiveData<Employee> _liveData = new();
 
-    public LiveData<Employee> EmployeeLiveData => _liveData;
-
-    public EmployeeCreationMenu(string[] menuItems) : base(menuItems)
-    {
-    }
-
-    protected override void DrawInput()
+    public void Parse()
     {
         try
         {
             RequestItem(0, RequestName);
+            _creationResult.Value = _builder.Build();
         }
-        catch (Exception e)
+        catch (Exception _)
         {
             Console.WriteLine("Введены некорректные данные");
         }
-
-        _liveData.Value = _builder.Build();
-        Console.WriteLine("Для выхода нажмите e");
     }
 
     private void RequestItem(int item, Action action)
     {
-        action.Invoke();
+        action();
 
         switch (item)
         {
@@ -64,7 +56,8 @@ public class EmployeeCreationMenu : BaseMenu
                     3 => EmployeeJobTitle.SystemAdministrator.Also(_ => _isFixedRateEmployee = true),
                     4 => EmployeeJobTitle.Cleaner.Also(_ => _isFixedRateEmployee = false),
                     5 => EmployeeJobTitle.Cashier.Also(_ => _isFixedRateEmployee = false),
-                    6 => EmployeeJobTitle.Courier.Also(_ => _isFixedRateEmployee = false)
+                    6 => EmployeeJobTitle.Courier.Also(_ => _isFixedRateEmployee = false),
+                    _ => throw new ArgumentOutOfRangeException("")
                 }
             );
         }

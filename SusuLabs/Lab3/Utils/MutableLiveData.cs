@@ -1,9 +1,9 @@
 namespace SusuLabs.Lab3.Utils;
 
-public class MutableLiveData<T> : LiveData<T>
+public class MutableLiveData<T> : ILiveData<T>
 {
     private T? _value;
-    private HashSet<LiveData<T>.OnDataChanged> _listeners = new();
+    private HashSet<ILiveData<T>.OnDataChanged> _listeners = new();
 
     public T? Value
     {
@@ -11,6 +11,8 @@ public class MutableLiveData<T> : LiveData<T>
         set
         {
             if (value == null) return;
+            
+            if (_value?.Equals(value) ?? false) return;
             _value = value;
 
             foreach (var listener in _listeners)
@@ -27,12 +29,12 @@ public class MutableLiveData<T> : LiveData<T>
     
     public MutableLiveData() {}
 
-    public void RemoveObserver(LiveData<T>.OnDataChanged listener)
+    public void RemoveObserver(ILiveData<T>.OnDataChanged listener)
     {
         _listeners.Remove(listener);
     }
 
-    public void Observe(LiveData<T>.OnDataChanged listener)
+    public void Observe(ILiveData<T>.OnDataChanged listener)
     {
         _listeners.Add(listener);
     }

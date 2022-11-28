@@ -13,4 +13,18 @@ public abstract class FixedSalaryEmployee : Employee
         FixedRate = fixedRate;
         Award = award;
     }
+
+    public override bool Equals(object? obj)
+    {
+        if (obj is not FixedSalaryEmployee employee) return false;
+
+        return employee.Id == Id
+               && employee.Name == Name
+               && employee.BornDate == BornDate
+               && Math.Abs(employee.FixedRate - FixedRate) < 0.005
+               && Math.Abs(employee.Award - Award) < 0.005
+               && employee.JobTitle == JobTitle;
+    }
+
+    public override int GetHashCode() => Id.GetHashCode();
 }
