@@ -12,8 +12,7 @@ public static class MenuBinder
         var res = new MainMenu();
         var type = obj.GetType();
         
-        var methods = type.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.NonPublic
-                                                                | BindingFlags.Public | BindingFlags.Static);
+        var methods = type.GetMethods( BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
         foreach (var method in methods)
         {
             method.GetCustomAttributes()

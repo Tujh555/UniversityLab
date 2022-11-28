@@ -24,10 +24,11 @@ public class Organization
 
     public void Add(Employee employee) => _list.Add(employee);
 
-    public void Delete(int index)
+    public void Delete(int index, Action<Employee>? onDelete = null)
     {
         try
         {
+            onDelete?.Invoke(_list[index]);
             _list.RemoveAt(index);
         }
         catch (Exception _)

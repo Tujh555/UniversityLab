@@ -1,13 +1,14 @@
 using System.Diagnostics;
 using SusuLabs.Lab3.Data;
 using SusuLabs.Lab3.Domain;
+using SusuLabs.Lab3.Domain.Employees;
 using SusuLabs.Lab3.Presentation.Menu;
 using SusuLabs.Lab3.Presentation.MenuAnnotationBuilder;
 using SusuLabs.Lab3.Utils;
 
 namespace SusuLabs.Lab3.Presentation;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] args)
     {
@@ -23,14 +24,21 @@ internal class MainProgram
     private static readonly EmployeeParser Parser = new();
     private readonly BaseMenu _menu;
 
+    private static readonly ILiveData<Employee>.OnDataChanged DataChangedListener = (emp) =>
+    {
+        Console.WriteLine($"Сотрудник {emp.Name} присоединился к нам");
+        _organization.Add(emp);
+    };
+
     public MainProgram()
     {
         _menu = MenuBinder.BindMenu(this);
-        Parser.CreationResult.Observe(emp => _organization.Add(emp));
     }
 
     public void Start()
     {
+        Parser.CreationResult.Observe(DataChangedListener);
+        
         while (true)
         {
             _menu.Draw();
@@ -42,6 +50,7 @@ internal class MainProgram
     private static void SaveOrganizationToFile()
     {
         Repository.WriteToXml(_organization);
+        Console.WriteLine("Организация сохранена");
     }
 
     [MenuItem("Загрузить организацию из файла")]
@@ -50,6 +59,7 @@ internal class MainProgram
         try
         {
             _organization = Repository.GetFromXml();
+            Console.WriteLine("Организация загружена");
         }
         catch (Exception e)
         {
@@ -62,7 +72,7 @@ internal class MainProgram
     {
         Console.WriteLine("Введите номер сотрудника которого хотите удалить");
         var num = int.Parse(Console.ReadLine()!);
-        _organization.Delete(num);
+        _organization.Delete(num, emp => Console.WriteLine($"{emp.Name} уволен"));
     }
 
     [MenuItem("Добавить сотрудника")]
@@ -129,6 +139,7 @@ internal class MainProgram
     [MenuItem("Выход")]
     private static void Exit()
     {
+        Parser.CreationResult.RemoveObserver(DataChangedListener);
         Process.GetCurrentProcess().Kill();
     }
 }
