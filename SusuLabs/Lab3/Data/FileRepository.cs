@@ -10,7 +10,7 @@ namespace SusuLabs.Lab3.Data;
 /// </summary>
 public class FileRepository : IRepository
 {
-    private const string FilePath = "C:/XmlFolder/Organization.xml";
+    private const string FilePath = "Organization.xml";
     private XmlSerializer _serializer = new (typeof(OrganizationEntity));
     
     /// <summary>
