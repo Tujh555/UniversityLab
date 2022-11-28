@@ -17,6 +17,9 @@ public static class Program
     }
 }
 
+/// <summary>
+/// Класс отвечает за основные действия программы
+/// </summary>
 internal class MainProgram
 {
     private static Organization _organization = new();

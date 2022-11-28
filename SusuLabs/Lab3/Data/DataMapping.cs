@@ -6,6 +6,10 @@ using SusuLabs.Lab3.Domain.Employees.HourlySalary;
 
 namespace SusuLabs.Lab3.Data;
 
+/// <summary>
+/// Класс с методами расширениями, предназаченными для приведения
+/// объектов слоя бизнесс-логики к объектам модели данных
+/// </summary>
 public static class DataMapping
 {
     private static readonly EmployeeBuilder _builder = new();

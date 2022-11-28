@@ -3,6 +3,9 @@ using SusuLabs.Lab3.Domain.Employees.HourlySalary;
 
 namespace SusuLabs.Lab3.Domain.Employees;
 
+/// <summary>
+/// Класс используется для пошагового создания сотрудников
+/// </summary>
 public class EmployeeBuilder
 {
     private readonly HashSet<int> _idSet = new();
@@ -14,6 +17,10 @@ public class EmployeeBuilder
     private EmployeeJobTitle? _jobTitle;
     private int? _id;
 
+    /// <summary>
+    /// Возвращает новый айди, уникальный для данного экземпляра
+    /// </summary>
+    /// <returns></returns>
     private int GetNewId()
     {
         int newId;
@@ -41,6 +48,11 @@ public class EmployeeBuilder
         return this;
     }
 
+    /// <summary>
+    /// Устанавливает дату рождения пользоватедя
+    /// </summary>
+    /// <param name="date">Дата рождения в формате гггг.мм.дд</param>
+    /// <returns></returns>
     public EmployeeBuilder BornDate(params int[] date)
     {
         var newDate = new[] { 0, 0, 0 };
@@ -84,6 +96,12 @@ public class EmployeeBuilder
         return this;
     }
 
+    /// <summary>
+    /// Создаёт новый экземпляр сотрудника
+    /// </summary>
+    /// <returns>Сотрудник фирмы</returns>
+    /// <exception cref="ArgumentException"></exception>
+    /// <seealso cref="Employee"/>
     public Employee Build()
     {
         var jobTitle = _jobTitle ?? throw new ArgumentException("Unknown type of job title");
@@ -101,6 +119,9 @@ public class EmployeeBuilder
     }
 }
 
+/// <summary>
+/// Перечисление рабочих должностей
+/// </summary>
 public enum EmployeeJobTitle
 {
     Secretary, Programmer, SystemAdministrator, Cleaner, Courier, Cashier

@@ -1,9 +1,14 @@
 namespace SusuLabs.Lab3.Utils;
 
+/// <summary>
+/// Данная реализация уведомляет подписчиков при вызове сеттера Value.
+/// Не уведомляет подписчиков если старые и новые данные эквивалентны.
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class MutableLiveData<T> : ILiveData<T>
 {
     private T? _value;
-    private HashSet<ILiveData<T>.OnDataChanged> _listeners = new();
+    private readonly HashSet<ILiveData<T>.OnDataChanged> _listeners = new();
 
     public T? Value
     {

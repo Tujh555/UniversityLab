@@ -1,5 +1,8 @@
 namespace SusuLabs.Lab3.Domain.Employees;
 
+/// <summary>
+/// Представляет базовые свойства сотрудника
+/// </summary>
 public abstract class Employee
 {
     public readonly int Id;

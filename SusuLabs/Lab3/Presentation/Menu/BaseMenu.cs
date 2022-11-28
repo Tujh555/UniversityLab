@@ -1,5 +1,8 @@
 namespace SusuLabs.Lab3.Presentation.Menu;
 
+/// <summary>
+/// Реализует базовую функциональность меню.
+/// </summary>
 public abstract class BaseMenu
 {
     protected readonly List<string> _menuItems = new ();
@@ -27,6 +30,10 @@ public abstract class BaseMenu
         }
     }
     
+    /// <summary>
+    /// Обрабатывает вводимую пользователем клавишу
+    /// </summary>
+    /// <param name="key">Клавиша, нажатая пользователем</param>
     public void PutKey(ConsoleKey key)
     {
         if (_isOperationInput)
@@ -56,6 +63,9 @@ public abstract class BaseMenu
         }
     }
     
+    /// <summary>
+    /// Занимается отрисовкой меню или пользовательского ввода
+    /// </summary>
     public void Draw()
     {
         Console.Clear();
@@ -69,8 +79,14 @@ public abstract class BaseMenu
         }
     }
 
+    /// <summary>
+    /// Отрисовка и запрос пользовательского ввода
+    /// </summary>
     protected abstract void DrawInput();
 
+    /// <summary>
+    /// Отрисовка меню
+    /// </summary>
     private void DrawMenu()
     {
         for (var i = 0; i < _menuItems.Count; i++)

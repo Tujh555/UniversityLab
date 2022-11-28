@@ -5,11 +5,18 @@ using SusuLabs.Lab3.Domain;
 
 namespace SusuLabs.Lab3.Data;
 
+/// <summary>
+/// Реализует репозиторий на основе файла
+/// </summary>
 public class FileRepository : IRepository
 {
     private const string FilePath = "C:/XmlFolder/Organization.xml";
     private XmlSerializer _serializer = new (typeof(OrganizationEntity));
     
+    /// <summary>
+    /// Записывает организацию в файл в формате XML
+    /// </summary>
+    /// <param name="organization">Сохраняемая организация</param>
     public void WriteToXml(Organization organization)
     {
         var organizationEntity = organization.ToEntity();
@@ -18,6 +25,12 @@ public class FileRepository : IRepository
         _serializer.Serialize(writer, organizationEntity);
     }
 
+    /// <summary>
+    /// Получает данные организации из файла
+    /// </summary>
+    /// <returns>Ранее сохраненная организация</returns>
+    /// <seealso cref="Organization"/>
+    /// <exception cref="DataException">Выбрасывается при неверном формате файла</exception>
     public Organization GetFromXml()
     {
         using var reader = new StreamReader(FilePath);

@@ -2,6 +2,9 @@ using SusuLabs.Lab3.Domain.Employees;
 
 namespace SusuLabs.Lab3.Domain;
 
+/// <summary>
+/// Класс представляющий органзацию
+/// </summary>
 public class Organization
 {
     private List<Employee> _list = new();
@@ -24,6 +27,11 @@ public class Organization
 
     public void Add(Employee employee) => _list.Add(employee);
 
+    /// <summary>
+    /// Удаляет пользователя из коллекции, вызывая при этом переданный callback
+    /// </summary>
+    /// <param name="index">Индекс сотрудника</param>
+    /// <param name="onDelete">Действие при удалении сотрудника</param>
     public void Delete(int index, Action<Employee>? onDelete = null)
     {
         try

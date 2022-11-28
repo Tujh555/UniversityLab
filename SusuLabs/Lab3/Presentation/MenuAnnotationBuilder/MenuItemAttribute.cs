@@ -1,5 +1,9 @@
 namespace SusuLabs.Lab3.Presentation.MenuAnnotationBuilder;
 
+/// <summary>
+/// Класс используется для пометки действия в меню
+/// и добавления описания к этому действию.
+/// </summary>
 [AttributeUsage(AttributeTargets.Method)]
 public class MenuItemAttribute : Attribute
 {

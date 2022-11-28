@@ -3,6 +3,9 @@ using SusuLabs.Lab3.Domain.Employees;
 
 namespace SusuLabs.Lab3.Data.Entities;
 
+/// <summary>
+/// Объект данных сотрудника, предназначенный для хранения в файловой системе в формате XML
+/// </summary>
 [
     XmlInclude(typeof(HourlySalaryEmployeeEntity)),
     XmlInclude(typeof(FixedSalaryEmployeeEntity))

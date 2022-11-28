@@ -2,14 +2,25 @@ using SusuLabs.Lab3.Domain.Employees;
 
 namespace SusuLabs.Lab3.Utils;
 
+/// <summary>
+/// Класс отвечающий за запрос и парсинг данных сотрудника
+/// </summary>
 public class EmployeeParser
 {
     private readonly EmployeeBuilder _builder = new();
     
+    /// <summary>
+    /// Результат создания сотрудника
+    /// <seealso cref="ILiveData{T}"/>
+    /// </summary>
     public ILiveData<Employee> CreationResult => _creationResult;
     private MutableLiveData<Employee> _creationResult = new();
     private bool _isFixedRateEmployee;
 
+    /// <summary>
+    /// Запрашивает данные о сотруднике, в случе удачи
+    /// отправляет результат в CreationResult.
+    /// </summary>
     public void Parse()
     {
         try
@@ -23,6 +34,11 @@ public class EmployeeParser
         }
     }
 
+    /// <summary>
+    /// Рекурсивно запрашивает данные с клавиатуры
+    /// </summary>
+    /// <param name="item">Номер операции запроса</param>
+    /// <param name="action">Операция запроса</param>
     private void RequestItem(int item, Action action)
     {
         action();
@@ -36,6 +52,10 @@ public class EmployeeParser
         }
     }
 
+    /// <summary>
+    /// Запрашивает название профессии
+    /// </summary>
+    /// <exception cref="ArgumentOutOfRangeException"></exception>
     private void RequestJobTitle()
     {
         Console.WriteLine("Введите номер должности");
@@ -69,6 +89,9 @@ public class EmployeeParser
         }
     }
 
+    /// <summary>
+    /// Запрашивает сумму премии
+    /// </summary>
     private void RequestAward()
     {
         Console.WriteLine("Введите премию");
@@ -76,6 +99,9 @@ public class EmployeeParser
         _builder.Award(num);
     }
 
+    /// <summary>
+    /// Запрашивает фиксированную ставку
+    /// </summary>
     private void RequestFixedRate()
     {
         Console.WriteLine("Введите фиксированную оплату");
@@ -83,6 +109,9 @@ public class EmployeeParser
         _builder.FixedRate(num);
     }
 
+    /// <summary>
+    /// Запрашивает почасовую оплату
+    /// </summary>
     private void RequestHourlyRate()
     {
         Console.WriteLine("Введите почасовую оплату");
@@ -90,6 +119,9 @@ public class EmployeeParser
         _builder.HourlyRate(num);
     }
 
+    /// <summary>
+    /// Запрашивает имя сотрудника
+    /// </summary>
     private void RequestName()
     {
         Console.WriteLine("Введите имя сотрудника");
@@ -98,6 +130,9 @@ public class EmployeeParser
         _builder.Name(name);
     }
 
+    /// <summary>
+    /// Запрашивает дату рождения сотрудника в формате гггг.мм.дд
+    /// </summary>
     private void RequestBornDate()
     {
         Console.WriteLine("Введите дату рождения (гггг.мм.дд)");

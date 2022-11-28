@@ -5,8 +5,17 @@ using SusuLabs.Lab3.Utils;
 
 namespace SusuLabs.Lab3.Presentation.MenuAnnotationBuilder;
 
+/// <summary>
+/// Класс 
+/// </summary>
 public static class MenuBinder
 {
+    /// <summary>
+    /// Создаёт и привязывает меню к определенным действиям объекта
+    /// </summary>
+    /// <param name="obj">Объект с действиями</param>
+    /// <returns>Меню</returns>
+    /// <seealso cref="BaseMenu"/>
     public static BaseMenu BindMenu(object obj)
     {
         var res = new MainMenu();
