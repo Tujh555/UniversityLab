@@ -1,0 +1,15 @@
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\bin\Debug\net6.0\SusuLabs.exe
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\bin\Debug\net6.0\SusuLabs.deps.json
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\bin\Debug\net6.0\SusuLabs.runtimeconfig.json
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\bin\Debug\net6.0\SusuLabs.dll
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\bin\Debug\net6.0\ref\SusuLabs.dll
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\bin\Debug\net6.0\SusuLabs.pdb
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.csproj.AssemblyReference.cache
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.AssemblyInfoInputs.cache
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.AssemblyInfo.cs
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.csproj.CoreCompileInputs.cache
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.dll
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\ref\SusuLabs.dll
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.pdb
+C:\Users\HP\RiderProjects\SolutionMain\SusuLabs\obj\Debug\net6.0\SusuLabs.genruntimeconfig.cache
