@@ -12,9 +12,9 @@ namespace SusuLabs.Lab3.Data;
 /// </summary>
 public static class DataMapping
 {
-    private static readonly EmployeeBuilder _builder = new();
+    private static readonly EmployeeBuilder Builder = new();
 
-    private static readonly EmployeeJobTitle[] _fixedSalaryEmployees = {
+    private static readonly EmployeeJobTitle[] FixedSalaryEmployees = {
         EmployeeJobTitle.Programmer,
         EmployeeJobTitle.Secretary,
         EmployeeJobTitle.SystemAdministrator
@@ -22,7 +22,7 @@ public static class DataMapping
 
     private static Employee ToEmployee(this FixedSalaryEmployeeEntity entity)
     {
-        return _builder
+        return Builder
             .Name(entity.Name)
             .Award(entity.Award)
             .BornDate(entity.BornDate)
@@ -34,7 +34,7 @@ public static class DataMapping
 
     private static Employee ToEmployee(this HourlySalaryEmployeeEntity entity)
     {
-        return _builder
+        return Builder
             .Name(entity.Name)
             .Award(entity.Award)
             .BornDate(entity.BornDate)
@@ -76,7 +76,7 @@ public static class DataMapping
         {
             Employees = organization.Employees
                 .Select(emp =>
-                    _fixedSalaryEmployees.Contains(emp.JobTitle)
+                    FixedSalaryEmployees.Contains(emp.JobTitle)
                         ? ((FixedSalaryEmployee)emp).ToEntity()
                         : ((HourlySalaryEmployee)emp).ToEntity()
                 ).ToList()
@@ -86,7 +86,7 @@ public static class DataMapping
     public static Organization ToOrganization(this OrganizationEntity entity)
     {
         var list = entity.Employees.Select(emp =>
-            _fixedSalaryEmployees.Contains(emp.JobTitle)
+            FixedSalaryEmployees.Contains(emp.JobTitle)
                 ? ((FixedSalaryEmployeeEntity)emp).ToEmployee()
                 : ((HourlySalaryEmployeeEntity)emp).ToEmployee()
         );

@@ -6,7 +6,7 @@ using SusuLabs.Lab3.Utils;
 namespace SusuLabs.Lab3.Presentation.MenuAnnotationBuilder;
 
 /// <summary>
-/// Класс 
+/// Класс создающий меню с помощью рефлексии
 /// </summary>
 public static class MenuBinder
 {

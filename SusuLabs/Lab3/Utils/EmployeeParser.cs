@@ -95,7 +95,24 @@ public class EmployeeParser
     private void RequestAward()
     {
         Console.WriteLine("Введите премию");
-        var num = double.Parse(Console.ReadLine()!);
+        var str = Console.ReadLine() ?? "0.0";
+
+        double num;
+
+        try
+        {
+            num = double.Parse(str);
+
+            if (num < 0.0)
+            {
+                num = 0.0;
+            }
+        }
+        catch (Exception e)
+        {
+            num = 0.0;
+        }
+
         _builder.Award(num);
     }
 

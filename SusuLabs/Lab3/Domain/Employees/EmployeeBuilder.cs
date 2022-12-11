@@ -16,11 +16,20 @@ public class EmployeeBuilder
     private double _award;
     private EmployeeJobTitle? _jobTitle;
     private int? _id;
+    private readonly Dictionary<EmployeeJobTitle, double> _defaultAwards = new()
+    {
+        { EmployeeJobTitle.Cashier, 1200.3 },
+        { EmployeeJobTitle.Cleaner, 10000},
+        { EmployeeJobTitle.Courier, 5000},
+        { EmployeeJobTitle.Programmer, 21412.0222},
+        { EmployeeJobTitle.Secretary, 15000},
+        { EmployeeJobTitle.SystemAdministrator, 50000}
+    };
 
     /// <summary>
-    /// Возвращает новый айди, уникальный для данного экземпляра
+    /// Возвращает новый айди, уникальный для данного экземпляра билдера
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Id сотрудника</returns>
     private int GetNewId()
     {
         int newId;
@@ -105,6 +114,8 @@ public class EmployeeBuilder
     public Employee Build()
     {
         var jobTitle = _jobTitle ?? throw new ArgumentException("Unknown type of job title");
+
+        _award = _award == 0.0 ? _defaultAwards[jobTitle] : _award;
         
         return _jobTitle switch
         {
